@@ -306,3 +306,16 @@ def diffusion_loss(batch,
   assert loss.shape == batch.shape[:1]
 
   return reduce_fn(loss, reduction)
+
+# utils/losses.py の末尾に追加
+
+def target_similarity_loss(current_latents, target_latents):
+  """
+  現在の潜在表現と目標の潜在表現との間の平均二乗誤差を計算する。
+  """
+  # target_latentsがNoneの場合は損失0を返す
+  if target_latents is None:
+    return 0.0
+  
+  loss = jnp.mean(jnp.square(current_latents - target_latents))
+  return loss

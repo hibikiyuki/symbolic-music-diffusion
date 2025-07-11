@@ -55,7 +55,7 @@ class EncodeSong(beam.DoFn):
     logging.info('Loading pre-trained model %s', FLAGS.model)
     self.model_config = config.MUSIC_VAE_CONFIG[FLAGS.model]
     self.model = TrainedModel(self.model_config,
-                              batch_size=1,
+                              batch_size=8,
                               checkpoint_dir_or_path=FLAGS.checkpoint)
 
   def process(self, ns):

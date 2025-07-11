@@ -21,6 +21,8 @@ import numpy as np
 from flax import struct
 from functools import partial
 
+# losses.pyから新しい損失関数をインポート
+from utils.losses import target_similarity_loss
 
 @struct.dataclass
 class ReplayBuffer(object):
@@ -286,7 +288,11 @@ def diffusion_dynamics(rng,
                        denoise,
                        infill=False,
                        infill_samples=None,
-                       infill_masks=None):
+                       # infill_masks=None):
+                       infill_masks=None,
+                       # 追加：新しい引数を受け取る
+                       target_latents=None,
+                       guidance_scale=1.0):
   """Diffusion dynamics (reverse process decoder).
   
   Args:
@@ -372,6 +378,13 @@ def diffusion_dynamics(rng,
     state_recon = jnp.clip(state_recon, -1., 1.)
     posterior_mu = posterior_mu1 * state_recon + posterior_mu2 * state
     next_state = posterior_mu + noise
+
+    # ★★★ ここからが誘導ロジックの本体 ★★★
+    if target_latents is not None:
+      # MSE損失に関する勾配を計算
+      grad = jax.grad(target_similarity_loss)(next_state, target_latents)
+      # 勾配を使って状態を更新（目標に近づける）
+      next_state = next_state - (guidance_scale * grad)
 
     # Infill
     next_state = next_state * (1 - infill_masks) + y * infill_masks

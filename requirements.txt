@@ -1,244 +1,241 @@
-absl-py==0.9.0
-aiohttp==3.6.2
-aiohttp-cors==0.7.0
-aioredis==1.3.1
-apache-beam==2.22.0
-astroid==2.4.2
-astunparse==1.6.3
-async-timeout==3.0.1
-attrs==19.3.0
-audioread==2.1.8
-avro-python3==1.9.2.1
-backcall==0.2.0
-backports.functools-lru-cache==1.5
-beautifulsoup4==4.9.1
-bleach==3.1.5
-blessings==1.7
-bokeh==2.1.0
-brotlipy==0.7.0
-bz2file==0.98
-cachetools==3.1.1
-certifi==2020.12.5
-cffi @ file:///tmp/build/80754af9/cffi_1606255099073/work
-chardet==3.0.4
-click==7.1.2
-cloudpickle==1.3.0
-cmake==3.18.4.post1
-colorama==0.4.3
-colorful==0.5.4
-crcmod==1.7
-cryptography @ file:///tmp/build/80754af9/cryptography_1607635305226/work
-cycler==0.10.0
-dataclasses==0.6
-decorator==4.4.2
-defusedxml==0.6.0
-dill==0.3.1.1
-dm-sonnet==2.0.0
-dm-tree==0.1.5
-docopt==0.6.2
-dopamine-rl==3.0.1
-entrypoints==0.3
-fastavro==0.23.4
-fasteners==0.15
-filelock==3.0.12
-flake8==3.8.3
-Flask==1.1.2
-flatbuffers==1.12
-flax==0.3.0
-future==0.18.2
-gast==0.3.3
-gevent==20.6.2
-gin-config==0.3.0
-google==3.0.0
-google-api-core==1.21.0
-google-api-python-client==1.9.3
-google-apitools==0.5.31
-google-auth==1.18.0
-google-auth-httplib2==0.0.3
-google-auth-oauthlib==0.4.1
-google-cloud-bigquery==1.24.0
-google-cloud-bigtable==1.0.0
-google-cloud-core==1.3.0
-google-cloud-datastore==1.7.4
-google-cloud-dlp==0.13.0
-google-cloud-language==1.3.0
-google-cloud-pubsub==1.0.2
-google-cloud-spanner==1.13.0
-google-cloud-videointelligence==1.13.0
-google-cloud-vision==0.42.0
-google-pasta==0.2.0
-google-resumable-media==0.5.1
-googleapis-common-protos==1.52.0
-gpustat==0.6.0
-greenlet==0.4.16
-grpc-google-iam-v1==0.12.3
-grpcio==1.29.0
-grpcio-gcp==0.2.2
-gunicorn==20.0.4
-gviz-api==1.9.0
-gym==0.17.2
-h5py==2.10.0
-hdfs==2.5.8
-hiredis==1.1.0
-httplib2==0.17.4
-idna==2.10
-imageio==2.8.0
-importlib-metadata==1.6.1
-intervaltree==3.0.2
-ipykernel==5.3.0
-ipython==7.15.0
-ipython-genutils==0.2.0
-ipywidgets==7.5.1
-isort==4.3.21
-itsdangerous==1.1.0
-jax==0.2.8
-jaxlib==0.1.57+cuda101
-jedi==0.17.0
-Jinja2==2.11.2
-joblib==0.15.1
-jsonschema==3.2.0
-jupyter==1.0.0
-jupyter-client==6.1.3
-jupyter-console==6.1.0
-jupyter-core==4.6.3
-Keras==2.4.3
-Keras-Preprocessing==1.1.2
-kfac==0.2.0
-kiwisolver==1.0.1
-lazy-object-proxy==1.4.3
-librosa==0.7.2
-llvmlite==0.31.0
--e git+https://github.com/magenta/magenta@2d0fd456d7faa272733b57d286f5f26998082cf8#egg=magenta
-Markdown==3.2.2
-MarkupSafe==1.1.1
-matplotlib==2.2.3
-mccabe==0.6.1
-mesh-tensorflow==0.1.13
-mido==1.2.6
-mir-eval==0.6
-mistune==0.8.4
-mock==2.0.0
-monotonic==1.5
-mpmath==1.1.0
-msgpack==1.0.0
-MulticoreTSNE==0.1
-multidict==4.7.6
-nbconvert==5.6.1
-nbformat==5.0.7
-networkx==2.4
-note-seq==0.0.2
-notebook==6.0.3
-numba==0.48.0
-numpy==1.19.4
-nvidia-ml-py3==7.352.0
-oauth2client==3.0.0
-oauthlib==3.1.0
-opencensus==0.7.12
+# TensorFlow 2.9.1 environment requirements
+
+# Core ML/DL Libraries
+absl-py>=0.9.0
+astunparse>=1.6.3
+cachetools>=3.1.1
+flatbuffers>=1.12 # Consider >=1.12,<2.0
+gast>=0.3.3
+google-pasta>=0.2.0
+grpcio>=1.29.0 # Check TF compatibility, might need specific range
+h5py # Version constraint removed
+keras==2.9.0 # Align with TensorFlow version
+Markdown>=3.2.2 # For TensorBoard
+numpy # Version constraint removed
+opt-einsum>=3.2.1 # TF/Keras dependency
+protobuf>=3.19.0,<4.0.0 # TF 2.9 often requires < 4
+six # Ubiquitous
+tensorboard>=2.9.0,<2.10.0 # Align with TensorFlow version
+tensorflow==2.9.1
+# tensorflow-estimator # Included in TF 2.9, remove unless specific version needed
+termcolor>=1.1.0
+tf-slim>=1.1.0 # Check if still needed for your models
+typing-extensions>=3.7.4 # Check TF requirements
+wrapt>=1.12.1
+
+# Magenta and its dependencies
+magenta>=2.1.0 # Compatible with TF 2.x
+note-seq # Magenta dependency
+librosa # Version constraint removed, Magenta dependency
+pretty-midi # Magenta dependency
+mido # Magenta dependency
+pydub # Version constraint removed, Magenta dependency
+sox # Version constraint removed, Magenta dependency
+soundfile # Version constraint removed, Magenta dependency
+pyfluidsynth # Magenta dependency
+audioread # Version constraint removed, librosa dependency
+resampy # Version constraint removed, librosa dependency
+joblib # Version constraint removed, librosa dependency
+decorator # Version constraint removed, librosa dependency
+
+# Data Science / Numerics
+pandas # Version constraint removed
+scipy # Version constraint removed
+scikit-learn # Version constraint removed
+scikit-image # Version constraint removed
+PyWavelets # Version constraint removed, scikit-image dependency
+networkx # Version constraint removed, scikit-image dependency
+imageio # Version constraint removed, scikit-image dependency
+tifffile # Version constraint removed, imageio dependency
+matplotlib # Version constraint removed
+cycler>=0.10.0 # Matplotlib dependency
+kiwisolver # Version constraint removed, Matplotlib dependency
+pyparsing>=2.2.0 # Matplotlib dependency
+python-dateutil # Version constraint removed, Matplotlib/Pandas dependency
+pytz # Version constraint removed, Pandas dependency
+seaborn # Version constraint removed
+
+# Apache Beam and related dependencies
+apache-beam>=2.22.0 # Check compatibility if used heavily with TF 2.9
+avro-python3>=1.9.2.1
+cloudpickle>=1.3.0
+crcmod>=1.7
+dill>=0.3.1.1
+fastavro>=0.23.4
+fasteners>=0.15
+hdfs>=2.5.8
+httplib2>=0.17.4 # Google API client dependency too
+mock>=2.0.0 # Might not be needed for Python 3
+oauth2client>=3.0.0 # Might be deprecated, check google-auth usage
+pymongo>=3.10.1
+pyarrow>=0.17.1
+
+# Google Cloud / API Libraries (Check compatibility or update if used)
+google-api-core>=1.21.0
+google-api-python-client>=1.9.3
+google-auth>=1.18.0
+google-auth-httplib2>=0.0.3
+google-auth-oauthlib>=0.4.1
+google-cloud-bigquery>=1.24.0
+google-cloud-core>=1.3.0
+# ... other google-cloud-* libraries ...
+googleapis-common-protos>=1.52.0
+google-resumable-media>=0.5.1
+grpc-google-iam-v1>=0.12.3 # Google cloud dependency
+# grpcio-gcp==0.2.2 # Check if needed/compatible
+rsa>=4.6 # google-auth dependency
+pyasn1>=0.4.8 # google-auth dependency
+pyasn1-modules>=0.2.8 # google-auth dependency
+uritemplate>=3.0.1 # google api client dependency
+
+# Web Frameworks / Serving (If needed)
+aiohttp>=3.6.2
+aiohttp-cors>=0.7.0
+async-timeout>=3.0.1
+attrs>=1.9.3 # Check project needs, many libraries depend on it
+Flask>=1.1.2
+gunicorn>=20.0.4
+itsdangerous>=1.1.0 # Flask dependency
+Jinja2>=2.11.2 # Flask dependency
+MarkupSafe>=1.1.1 # Jinja2 dependency
+multidict>=4.7.6 # aiohttp dependency
+Werkzeug>=1.0.1 # Flask dependency, consider updating Flask/Werkzeug together
+yarl>=1.4.2 # aiohttp dependency
+
+# Jupyter / IPython Environment (If needed)
+ipython # Version constraint removed
+ipykernel # Version constraint removed
+jupyter # Version constraint removed
+notebook # Version constraint removed
+# ... other jupyter-* and ipywidgets ...
+backcall>=0.2.0 # ipython dependency
+bleach>=3.1.5 # nbconvert dependency
+decorator # Version constraint removed, ipython dependency
+entrypoints>=0.3 # jupyter dependency
+ipython-genutils>=0.2.0 # jupyter dependency
+jedi # Version constraint removed, ipython dependency
+jsonschema>=3.2.0 # nbformat dependency
+jupyter-client # Version constraint removed
+jupyter-console # Version constraint removed
+jupyter-core # Version constraint removed
+mistune>=0.8.4 # nbconvert dependency
+nbconvert # Version constraint removed
+nbformat # Version constraint removed
+pandocfilters>=1.4.2 # nbconvert dependency
+parso # Version constraint removed, jedi dependency
+pexpect>=4.8.0 # ipykernel dependency
+pickleshare>=0.7.5 # ipython dependency
+prometheus-client>=0.8.0 # notebook dependency?
+prompt-toolkit>=3.0.5 # ipython dependency
+ptyprocess>=0.6.0 # pexpect dependency
+Pygments>=2.6.1 # ipython/nbconvert dependency
+pyzmq>=19.0.1 # jupyter dependency
+qtconsole # Version constraint removed
+QtPy>=1.9.0 # jupyter dependency
+Send2Trash>=1.5.0 # notebook dependency
+terminado>=0.8.3 # notebook dependency
+testpath>=0.4.4 # nbconvert dependency
+tornado>=6.0.4 # jupyter dependency
+traitlets>=4.3.3 # ipython/jupyter dependency
+wcwidth>=0.2.4 # prompt-toolkit dependency
+webencodings>=0.5.1 # bleach dependency
+widgetsnbextension # Version constraint removed
+
+# Other Utilities
+backports.functools-lru-cache==1.5 # Only needed for Python < 3.2
+beautifulsoup4>=4.9.1 # Check usage
+blessings==1.7 # Check usage
+brotlipy==0.7.0 # Check usage (requests?)
+bz2file==0.98 # Check usage
+cffi # Version constraint removed
+chardet>=3.0.4 # requests dependency
+click>=7.1.2 # Flask/other CLI tools
+cmake==3.18.4.post1 # Needed for building some packages, not a runtime dep usually
+colorama==0.4.3 # Check usage (CLI coloring)
+colorful==0.5.4 # Check usage
+cryptography # Version constraint removed
+dataclasses==0.6 # Only needed for Python 3.6
+defusedxml==0.6.0 # Check usage (XML parsing)
+dm-sonnet>=2.0.0 # DeepMind library, check TF 2.9 compatibility
+dm-tree>=0.1.5 # DeepMind library dependency
+docopt==0.6.2 # CLI argument parsing
+# dopamine-rl==3.0.1 # Check TF 2.9 compatibility
+filelock>=3.0.12
+future>=0.18.2 # Python 2/3 compatibility, less needed now
+gevent>=20.6.2 # Async library
+gin-config>=0.3.0 # Configuration framework
+# google==3.0.0 # Namespace package, usually not needed directly
+gpustat==0.6.0 # GPU monitoring CLI
+greenlet>=0.4.16 # gevent dependency
+# gym==0.17.2 # Check compatibility, OpenAI Gym
+hiredis==1.1.0 # Faster redis parsing
+idna>=2.10 # requests dependency
+importlib-metadata>=1.6.1 # Check project usage
+intervaltree>=3.0.2 # note-seq dependency?
+# kfac==0.2.0 # Optimization library, check compatibility
+lazy-object-proxy>=1.4.3 # Check usage (pylint?)
+llvmlite>=0.31.0 # Numba dependency
+# mesh-tensorflow==0.1.13 # Check TF 2.9 compatibility
+# mir-eval==0.6 # Music information retrieval evaluation
+monotonic==1.5 # Only needed for Python < 3.3
+mpmath>=1.1.0 # Sympy dependency
+msgpack>=1.0.0 # Ray dependency?
+numba # Version constraint removed, check numpy compatibility
+nvidia-ml-py3>=7.352.0 # Python bindings for NVIDIA monitoring
+oauthlib>=3.1.0 # requests-oauthlib dependency
+opencensus>=0.7.12 # Monitoring/tracing
 opencensus-context==0.1.2
-opencv-python==4.2.0.34
-opt-einsum==3.2.1
-packaging==20.4
-pandas==1.0.5
-pandocfilters==1.4.2
-parso==0.7.0
-pbr==5.4.5
-pexpect==4.8.0
-pickleshare==0.7.5
-Pillow==7.1.2
-pretty-midi==0.2.9
-prometheus-client==0.8.0
+opencv-python # Version constraint removed
+packaging>=20.4
+pbr>=5.4.5 # Used by some setuptools projects
+Pillow # Version constraint removed
 promise==2.3
-prompt-toolkit==3.0.5
-protobuf==3.12.2
-psutil==5.8.0
-ptyprocess==0.6.0
-py-spy==0.3.3
-pyarrow==0.17.1
-pyasn1==0.4.8
-pyasn1-modules==0.2.8
-pycodestyle==2.6.0
-pycparser @ file:///tmp/build/80754af9/pycparser_1594388511720/work
-pydot==1.4.1
-pydub==0.24.1
-pyflakes==2.2.0
-pyFluidSynth==1.2.5
-pyglet==1.5.0
-Pygments==2.6.1
-pygtrie==2.3.3
-pylint==2.5.3
-pymongo==3.10.1
-pyOpenSSL @ file:///tmp/build/80754af9/pyopenssl_1608057966937/work
-pyparsing==2.2.0
-pypng==0.0.20
-pyrsistent==0.16.0
-PySocks @ file:///tmp/build/80754af9/pysocks_1594394576006/work
-python-dateutil==2.7.3
-python-rtmidi==1.1.2
-pytz==2018.5
-PyWavelets==1.1.1
-PyYAML==5.3.1
-pyzmq==19.0.1
-qtconsole==4.7.4
-QtPy==1.9.0
-ray==1.1.0
-redis==3.5.3
-requests==2.24.0
-requests-oauthlib==1.3.0
-resampy==0.2.2
-rsa==4.6
-scikit-image==0.17.2
-scikit-learn==0.19.2
-scipy==1.1.0
-seaborn==0.10.1
-selenium @ file:///tmp/build/80754af9/selenium_1594420457392/work
-Send2Trash==1.5.0
-six @ file:///tmp/build/80754af9/six_1605205313296/work
-sk-video==1.1.10
-sklearn==0.0
-sortedcontainers==2.2.2
-SoundFile==0.10.3.post1
-soupsieve==2.0.1
-sox==1.3.7
-subprocess32==3.5.2
-sympy==1.6
-tabulate==0.8.7
-tensor2tensor==1.15.7
-tensorboard==2.4.1
-tensorboard-plugin-profile==2.3.0
-tensorboard-plugin-wit==1.6.0.post3
-tensorflow==2.3.1
-tensorflow-addons==0.10.0
-tensorflow-datasets==3.1.0
-tensorflow-estimator==2.3.0
-tensorflow-gan==2.0.0
-tensorflow-hub==0.8.0
-tensorflow-metadata==0.22.2
-tensorflow-probability==0.7.0
-termcolor==1.1.0
-terminado==0.8.3
-testpath==0.4.4
-tf-slim==1.1.0
-tfp-nightly==0.12.0.dev20201127
-threadpoolctl==2.1.0
-tifffile==2020.6.3
-toml==0.10.1
-torch==1.5.1
-tornado==6.0.4
-tqdm==4.46.1
-traitlets==4.3.3
-tsnecuda==0.1.1
-typed-ast==1.4.1
+psutil>=5.8.0
+py-spy==0.3.3 # Python process profiler
+pycodestyle>=2.6.0 # Linting
+pycparser # cffi dependency
+pydot>=1.4.1 # Graph visualization
+pyflakes>=2.2.0 # Linting
+pyglet>=1.5.0 # gym dependency?
+pygtrie>=2.3.3 # Check usage
+pylint>=2.5.3 # Linting
+pyOpenSSL # Version constraint removed
+pypng>=0.0.20 # Check usage (image format)
+pyrsistent>=0.16.0 # Functional data structures, jsonschema dependency
+PySocks # Version constraint removed, requests dependency
+ray>=1.1.0 # Check TF 2.9 compatibility or update Ray
+redis>=3.5.3 # Check usage (aioredis backend?)
+requests>=2.24.0
+requests-oauthlib>=1.3.0
+sortedcontainers>=2.2.2 # Used by various libraries
+soupsieve>=2.0.1 # beautifulsoup4 dependency
+# subprocess32==3.5.2 # Only needed for Python 2
+sympy>=1.6 # Symbolic math
+tabulate>=0.8.7
+# tensor2tensor==1.15.7 # Deprecated, uses TF1
+# tensorflow-addons # Install compatible version for TF 2.9 (e.g., pip install tensorflow-addons>=0.17.0,<0.18.0)
+# tensorflow-datasets # Install compatible version for TF 2.9 (e.g., pip install tensorflow-datasets>=4.6.0,<4.7.0)
+# tensorflow-gan # Check TF 2.9 compatibility
+# tensorflow-hub # Install compatible version for TF 2.9 (e.g., pip install tensorflow-hub>=0.12.0,<0.13.0)
+# tensorflow-metadata # Install compatible version for TF 2.9 (e.g., pip install tensorflow-metadata>=1.8.0,<1.9.0)
+# tensorflow-probability # Install compatible version for TF 2.9 (e.g., pip install tensorflow-probability>=0.16.0,<0.17.0)
+threadpoolctl>=2.1.0 # Controls thread pools in native libraries (BLAS)
+toml>=0.10.1
+# torch==1.5.1 # Removed, install separately if needed (CPU or CUDA 11.2 compatible)
+tqdm>=4.46.1 # Progress bars
+# tsnecuda==0.1.1 # Removed
+typed-ast==1.4.1 # Check usage (pylint?)
 typeguard==2.9.1
-typing-extensions==3.7.4.2
-uritemplate==3.0.1
-urllib3==1.25.11
-wcwidth==0.2.4
-webencodings==0.5.1
-Werkzeug==1.0.1
-widgetsnbextension==3.5.1
-wrapt==1.12.1
-yapf==0.27.0
-yarl==1.4.2
-zipp==3.1.0
-zope.event==4.4
-zope.interface==5.1.0
+urllib3>=1.25.11 # requests dependency
+yapf>=0.27.0 # Code formatter
+zipp>=3.1.0 # importlib_resources backport dependency
+zope.event==4.4 # Check usage (twisted?)
+zope.interface==5.1.0 # Check usage (twisted?)
+
+# Packages removed based on user request or redundancy:
+# jax
+# jaxlib
+# sklearn (use scikit-learn)
+# MulticoreTSNE
+# python-rtmidi
+# tfp-nightly

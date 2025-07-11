@@ -54,6 +54,7 @@ flags.DEFINE_integer('n_synth', 1000, 'Number of samples to decode.')
 flags.DEFINE_boolean('include_wav', True, 'Include audio waveforms.')
 flags.DEFINE_boolean('include_plots', True, 'Include Bokeh plots of MIDI.')
 flags.DEFINE_boolean('gen_only', False, 'Only generate the fake audio.')
+flags.DEFINE_boolean('include_midi', True, 'Include MIDI files.') # 追加
 
 flags.DEFINE_boolean('melody', True, 'If True, decode melodies.')
 flags.DEFINE_boolean('infill', False, 'Evaluate quality of infilled measures.')
@@ -102,24 +103,40 @@ def decode_emb(emb, model, data_converter, chunks_only=False):
   return samples
 
 
+# MIDI書き出し処理を追加
 @ray.remote
-def parallel_synth(song, i, ns_dir, audio_dir, image_dir, include_wav,
-                   include_plots):
-  """Synthesizes NoteSequences (and plots) in parallel."""
+def parallel_synth(song, i, ns_dir, audio_dir, image_dir, midi_dir, # midi_dir を引数に追加
+                   include_wav, include_plots, include_midi): # include_midi を引数に追加
+  """Synthesizes NoteSequences (and plots, and MIDI) in parallel."""
   audio_path = os.path.join(audio_dir, f'{i + 1}.wav')
   plot_path = os.path.join(image_dir, f'{i + 1}.png')
   ns_path = os.path.join(ns_dir, f'{i+1}.pkl')
-  logging.info(audio_path)
-  ns = song.play()
+  midi_path = os.path.join(midi_dir, f'{i+1}.mid') # MIDI ファイルのパス
+  
+  logging.info(f'Processing sequence {i+1}...') # どのファイルを処理しているか分かりやすく
+  ns = song.play() # song.play() が NoteSequence オブジェクトを返すと仮定
 
   if include_plots:
-    fig = note_seq.plot_sequence(ns, show_figure=False)
-    export_png(fig, filename=plot_path)
+    try:
+        fig = note_seq.plot_sequence(ns, show_figure=False)
+        export_png(fig, filename=plot_path)
+    except Exception as e:
+        logging.error(f'Error generating plot for {plot_path}: {e}')
 
   if include_wav:
-    synthesize_ns(audio_path, ns)
+    try:
+        synthesize_ns(audio_path, ns)
+    except Exception as e:
+        logging.error(f'Error synthesizing WAV for {audio_path}: {e}')
+  
+  if include_midi: # MIDI 生成処理を追加
+    try:
+      note_seq.note_sequence_to_midi_file(ns, midi_path)
+      logging.info(f'Saved MIDI to {midi_path}')
+    except Exception as e:
+      logging.error(f'Error saving MIDI {midi_path}: {e}')
 
-  data_utils.save(ns, ns_path)
+  data_utils.save(ns, ns_path) # NoteSequence の .pkl 保存はそのまま
   return ns
 
 
@@ -195,8 +212,12 @@ def main(argv):
     audio_dir = os.path.join(FLAGS.output, sample_split, 'audio')
     image_dir = os.path.join(FLAGS.output, sample_split, 'images')
     ns_dir = os.path.join(FLAGS.output, sample_split, 'ns')
+    midi_dir = os.path.join(FLAGS.output, sample_split, 'midi') # MIDI ディレクトリパス
+
     Path(audio_dir).mkdir(parents=True, exist_ok=True)
     Path(image_dir).mkdir(parents=True, exist_ok=True)
+    Path(ns_dir).mkdir(parents=True, exist_ok=True) # ns_dir も作成されていることを確認
+    Path(midi_dir).mkdir(parents=True, exist_ok=True) # MIDI ディレクトリ作成
 
     sequences = decode_emb(sample_emb[:FLAGS.n_synth],
                            vae_model,
@@ -205,14 +226,18 @@ def main(argv):
     assert len(sequences) == FLAGS.n_synth
 
     futures = [
-        parallel_synth.remote(song, i, ns_dir, audio_dir, image_dir,
-                              FLAGS.include_wav, FLAGS.include_plots)
+        parallel_synth.remote(song, i, ns_dir, audio_dir, image_dir, 
+                              midi_dir, # midi_dir を渡す
+                              FLAGS.include_wav, FLAGS.include_plots, 
+                              FLAGS.include_midi) # FLAGS.include_midi を渡す
         for i, song in enumerate(sequences)
     ]
-    ns = ray.get(futures)
-    eval_seqs[sample_split] = ns
+    ns_results = ray.get(futures) # ns から ns_results に変更 (任意)
+    eval_seqs[sample_split] = ns_results
 
-    logging.info(f'Sythesized {sample_split} at {audio_dir}')
+    logging.info(f'Synthesized {sample_split} audio at {audio_dir}')
+    if FLAGS.include_midi:
+        logging.info(f'Synthesized {sample_split} MIDI at {midi_dir}')
 
 
 if __name__ == '__main__':

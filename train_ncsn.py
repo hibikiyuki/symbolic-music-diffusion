@@ -504,7 +504,11 @@ def sample(scorenet,
            sampling='ald',
            epsilon=1e-3,
            steps=100,
-           denoise=True):
+           # denoise=True):
+           denoise=True,
+           # 追加：新しい引数を受け取る
+           target_latents=None,
+           guidance_scale=1.0):
   """Generate samples via Langevin dynamics.
   
   Args:
@@ -545,8 +549,14 @@ def sample(scorenet,
                               minval=-rho,
                               maxval=rho)
 
+  # generated, collection, ld_metrics = sampling_algorithm(
+  #     ld_rng, scorenet, sigmas, init, epsilon, steps, denoise, False)
   generated, collection, ld_metrics = sampling_algorithm(
-      ld_rng, scorenet, sigmas, init, epsilon, steps, denoise, False)
+    ld_rng, scorenet, sigmas, init, epsilon, steps, denoise, False,
+    # 追加：新しい引数を渡す
+    target_latents=target_latents,
+    guidance_scale=guidance_scale
+  )
   ld_metrics = ebm_utils.collate_sampling_metrics(ld_metrics)
   return generated, collection, ld_metrics
 

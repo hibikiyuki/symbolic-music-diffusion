@@ -10,3 +10,13 @@ save
 checkpoints/eval
 *.wav
 experiments/
+
+train.json
+tmp/
+_old/
+Dockerfile
+.devcontainer/
+*.npy
+run_generate_song_data.sh
+data/
+*.tar
